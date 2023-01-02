@@ -5,6 +5,7 @@ import {
   appendToDom,
   createDom,
   createModulePreloadLinkElement,
+  createPrefetchLinkElement,
   createStylesheetLinkElement,
   getExistingLinks,
 } from "./dom-utils";
@@ -71,8 +72,15 @@ export default function VitePluginPreloadAll(
         );
 
         for (const additionalModule of additionalModules) {
-          const element = createModulePreloadLinkElement(dom, additionalModule);
-          appendToDom(dom, element);
+          if (mergedOptions.isPrefetch) {
+            // prefetch
+            const element = createPrefetchLinkElement(dom, additionalModule);
+            appendToDom(dom, element);
+          }else{
+            // modulePreload
+            const element = createModulePreloadLinkElement(dom, additionalModule);
+            appendToDom(dom, element);
+          }
         }
 
         for (const additionalStylesheet of additionalStylesheets) {
