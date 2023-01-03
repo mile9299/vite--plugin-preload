@@ -35,7 +35,8 @@ var defaultOptions = {
   includeJs: true,
   includeCss: true,
   isPrefetch: false,
-  prettierSettings: null
+  prettierSettings: null,
+  baseUrl: ""
 };
 
 // src/index.ts
@@ -101,7 +102,10 @@ function VitePluginPreloadAll(options) {
         let additionalModules = [];
         let additionalStylesheets = [];
         for (const bundle of Object.values(ctx.bundle)) {
-          const path = `${viteConfig.server.base ?? ""}/${bundle.fileName}`;
+          let path = `${viteConfig.server.base ?? ""}/${bundle.fileName}`;
+          if (mergedOptions.baseUrl) {
+            path = `${mergedOptions.baseUrl}/${bundle.fileName}`;
+          }
           if (existingLinks.includes(path)) {
             continue;
           }

@@ -3,6 +3,7 @@ export interface PreloadOptions {
   includeCss: boolean;
   isPrefetch: boolean;
   prettierSettings: any;
+  baseUrl: string;
 }
 
 export const defaultOptions: PreloadOptions = {
@@ -10,4 +11,5 @@ export const defaultOptions: PreloadOptions = {
   includeCss: true,
   isPrefetch: false,
   prettierSettings: null,
+  baseUrl: '',
 };
