@@ -34,7 +34,8 @@ module.exports = __toCommonJS(src_exports);
 var defaultOptions = {
   includeJs: true,
   includeCss: true,
-  isPrefetch: false
+  isPrefetch: false,
+  prettierSettings: null
 };
 
 // src/index.ts
@@ -133,7 +134,11 @@ function VitePluginPreloadAll(options) {
           );
           appendToDom(dom, element);
         }
-        return import_prettier.default.format(dom.serialize(), { parser: "html" });
+        let prettierSettings = {};
+        if (mergedOptions.prettierSettings) {
+          prettierSettings = mergedOptions.prettierSettings;
+        }
+        return import_prettier.default.format(dom.serialize(), { parser: "html", ...prettierSettings });
       }
     }
   };

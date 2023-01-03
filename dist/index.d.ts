@@ -4,6 +4,7 @@ interface PreloadOptions {
     includeJs: boolean;
     includeCss: boolean;
     isPrefetch: boolean;
+    prettierSettings: any;
 }
 
 declare function VitePluginPreloadAll(options?: Partial<PreloadOptions>): Plugin;

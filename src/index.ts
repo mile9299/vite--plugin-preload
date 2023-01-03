@@ -91,7 +91,11 @@ export default function VitePluginPreloadAll(
           appendToDom(dom, element);
         }
 
-        return prettier.format(dom.serialize(), { parser: "html" });
+        let prettierSettings = {}
+        if(mergedOptions.prettierSettings){
+            prettierSettings = mergedOptions.prettierSettings
+        }
+        return prettier.format(dom.serialize(), { parser: "html", ...prettierSettings });
       },
     },
   };

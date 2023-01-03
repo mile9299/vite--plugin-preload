@@ -2,7 +2,8 @@
 var defaultOptions = {
   includeJs: true,
   includeCss: true,
-  isPrefetch: false
+  isPrefetch: false,
+  prettierSettings: null
 };
 
 // src/index.ts
@@ -101,7 +102,11 @@ function VitePluginPreloadAll(options) {
           );
           appendToDom(dom, element);
         }
-        return prettier.format(dom.serialize(), { parser: "html" });
+        let prettierSettings = {};
+        if (mergedOptions.prettierSettings) {
+          prettierSettings = mergedOptions.prettierSettings;
+        }
+        return prettier.format(dom.serialize(), { parser: "html", ...prettierSettings });
       }
     }
   };
