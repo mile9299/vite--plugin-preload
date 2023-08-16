@@ -1,5 +1,13 @@
+import type { Options as PrettierOptions } from "prettier";
+
 export interface PreloadOptions {
+  /**
+   * @default true
+   */
   includeJs: boolean;
+  /**
+   * @default true
+   */
   includeCss: boolean;
   isPrefetch: boolean;
   prettierSettings: any;

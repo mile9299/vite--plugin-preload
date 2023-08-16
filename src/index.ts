@@ -10,9 +10,10 @@ import {
   getExistingLinks,
 } from "./dom-utils";
 import prettier from "prettier";
+import { resolve } from "url";
 
-const jsFilter = createFilter(["**/*.*.js"]);
-const cssFilter = createFilter(["**/*.*.css"]);
+const jsFilter = createFilter(["**/*-*.js"]);
+const cssFilter = createFilter(["**/*-*.css"]);
 
 export default function VitePluginPreloadAll(
   options?: Partial<PreloadOptions>
@@ -34,6 +35,7 @@ export default function VitePluginPreloadAll(
           return html;
         }
 
+        const base = viteConfig.base ?? "";
         const dom = createDom(html);
         const existingLinks = getExistingLinks(dom);
         let additionalModules: string[] = [];
