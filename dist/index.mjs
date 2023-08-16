@@ -47,8 +47,8 @@ var appendToDom = (dom, link) => dom.window.document.head.appendChild(link);
 
 // src/index.ts
 import prettier from "prettier";
-var jsFilter = createFilter(["**/*.*.js"]);
-var cssFilter = createFilter(["**/*.*.css"]);
+var jsFilter = createFilter(["**/*-*.js"]);
+var cssFilter = createFilter(["**/*-*.css"]);
 function VitePluginPreloadAll(options) {
   let viteConfig;
   const mergedOptions = { ...defaultOptions, ...options };
@@ -65,6 +65,7 @@ function VitePluginPreloadAll(options) {
         if (!ctx.bundle) {
           return html;
         }
+        const base = viteConfig.base ?? "";
         const dom = createDom(html);
         const existingLinks = getExistingLinks(dom);
         let additionalModules = [];

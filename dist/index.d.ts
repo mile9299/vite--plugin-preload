@@ -1,7 +1,13 @@
 import { Plugin } from 'vite';
 
 interface PreloadOptions {
+    /**
+     * @default true
+     */
     includeJs: boolean;
+    /**
+     * @default true
+     */
     includeCss: boolean;
     isPrefetch: boolean;
     prettierSettings: any;

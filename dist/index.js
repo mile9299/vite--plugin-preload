@@ -18,6 +18,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -79,8 +83,8 @@ var appendToDom = (dom, link) => dom.window.document.head.appendChild(link);
 
 // src/index.ts
 var import_prettier = __toESM(require("prettier"));
-var jsFilter = (0, import_pluginutils.createFilter)(["**/*.*.js"]);
-var cssFilter = (0, import_pluginutils.createFilter)(["**/*.*.css"]);
+var jsFilter = (0, import_pluginutils.createFilter)(["**/*-*.js"]);
+var cssFilter = (0, import_pluginutils.createFilter)(["**/*-*.css"]);
 function VitePluginPreloadAll(options) {
   let viteConfig;
   const mergedOptions = { ...defaultOptions, ...options };
@@ -97,6 +101,7 @@ function VitePluginPreloadAll(options) {
         if (!ctx.bundle) {
           return html;
         }
+        const base = viteConfig.base ?? "";
         const dom = createDom(html);
         const existingLinks = getExistingLinks(dom);
         let additionalModules = [];
@@ -147,5 +152,3 @@ function VitePluginPreloadAll(options) {
     }
   };
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {});
